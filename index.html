@@ -930,13 +930,19 @@ function showSection(id) {
 
 function toggle(header) {
   const chapter = header.parentElement;
-  chapter.classList.toggle('open');
+  const body = chapter.querySelector('.chapter-body');
+  if (chapter.classList.contains('open')) {
+    chapter.classList.remove('open');
+    body.style.display = 'none';
+  } else {
+    chapter.classList.add('open');
+    body.style.display = 'block';
+  }
 }
 
 document.querySelectorAll('.chapter').forEach(ch => {
-  if (!ch.classList.contains('open')) {
-    ch.querySelector('.chapter-body').style.display = 'none';
-  }
+  const body = ch.querySelector('.chapter-body');
+  body.style.display = ch.classList.contains('open') ? 'block' : 'none';
 });
 </script>
 
