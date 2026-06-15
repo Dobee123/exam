@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>기말고사 종합정리노트</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; background: #f5f5f0; color: #1a1a1a; font-size: 14px; line-height: 1.7; }
+  .header { background: #1a1a2e; color: white; padding: 24px 32px; position: sticky; top: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; }
+  .header h1 { font-size: 18px; font-weight: 600; letter-spacing: -0.3px; }
+  .exam-badge { background: #e84393; color: white; font-size: 11px; padding: 4px 10px; border-radius: 12px; font-weight: 600; }
+  .nav { background: #16213e; display: flex; gap: 4px; padding: 8px 32px; overflow-x: auto; position: sticky; top: 65px; z-index: 99; }
+  .nav-btn { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.7); padding: 5px 14px; border-radius: 16px; cursor: pointer; font-size: 12px; white-space: nowrap; transition: all 0.2s; font-family: inherit; }
+  .nav-btn.active, .nav-btn:hover { background: rgba(255,255,255,0.15); color: white; border-color: rgba(255,255,255,0.5); }
+  .container { max-width: 960px; margin: 0 auto; padding: 24px 20px; }
+  .section { display: none; }
+  .section.active { display: block; }
+  .chapter { background: white; border-radius: 12px; margin-bottom: 16px; overflow: hidden; border: 1px solid #e8e8e0; }
+  .chapter-header { padding: 16px 20px; background: #f8f8f4; border-bottom: 1px solid #e8e8e0; display: flex; align-items: center; gap: 12px; cursor: pointer; user-select: none; }
+  .chapter-num { background: #1a1a2e; color: white; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; }
+  .chapter-title { font-size: 15px; font-weight: 600; flex: 1; }
+  .toggle-icon { color: #888; transition: transform 0.2s; font-size: 16px; }
+  .chapter.open .toggle-icon { transform: rotate(180deg); }
+  .chapter-body { padding: 20px; display: none; }
+  .chapter.open .chapter-body { display: block; }
+  .concept { border-left: 3px solid #1a1a2e; padding: 10px 14px; margin: 10px 0; background: #fafaf8; border-radius: 0 6px 6px 0; }
+  .concept-name { font-weight: 700; color: #1a1a2e; font-size: 13px; margin-bottom: 4px; }
+  .concept-desc { color: #444; font-size: 13px; line-height: 1.6; }
+  .highlight { background: #fff3cd; padding: 1px 4px; border-radius: 3px; font-weight: 600; }
+  .warn-box { background: #fff8e1; border: 1px solid #ffcc02; border-radius: 8px; padding: 12px 16px; margin: 12px 0; font-size: 13px; }
+  .warn-box::before { content: "⚠️ "; }
+  .info-box { background: #e8f4fd; border: 1px solid #90caf9; border-radius: 8px; padding: 12px 16px; margin: 12px 0; font-size: 13px; }
+  .info-box::before { content: "📌 "; }
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 13px; }
+  th { background: #1a1a2e; color: white; padding: 8px 12px; text-align: left; font-weight: 600; }
+  td { padding: 8px 12px; border-bottom: 1px solid #eee; vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) td { background: #fafaf8; }
+  .tag { display: inline-block; background: #e8f0fe; color: #1a73e8; font-size: 11px; padding: 2px 8px; border-radius: 10px; margin: 2px; font-weight: 600; }
+  .tag.red { background: #fde8e8; color: #c62828; }
+  .tag.green { background: #e8f5e9; color: #2e7d32; }
+  .tag.purple { background: #f3e5f5; color: #6a1b9a; }
+  .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 12px 0; }
+  .compare-box { border: 1px solid #e0e0e0; border-radius: 8px; padding: 14px; }
+  .compare-box h4 { font-size: 13px; font-weight: 700; margin-bottom: 8px; color: #1a1a2e; }
+  .compare-box ul { list-style: none; }
+  .compare-box ul li { font-size: 13px; padding: 3px 0; border-bottom: 1px solid #f0f0f0; }
+  .compare-box ul li:last-child { border-bottom: none; }
+  .compare-box ul li::before { content: "• "; color: #888; }
+  .korea { border-top: 3px solid #003087; }
+  .usa { border-top: 3px solid #B22234; }
+  h3 { font-size: 14px; font-weight: 700; color: #1a1a2e; margin: 16px 0 8px; padding-left: 8px; border-left: 3px solid #e84393; }
+  h4 { font-size: 13px; font-weight: 700; color: #333; margin: 12px 0 6px; }
+  p { font-size: 13px; color: #444; margin: 6px 0; line-height: 1.7; }
+  ul, ol { margin: 8px 0 8px 20px; }
+  li { font-size: 13px; color: #444; margin: 3px 0; }
+  .oops { background: #1a1a2e; color: white; border-radius: 8px; padding: 12px 16px; margin: 8px 0; font-size: 13px; }
+  .oops-year { color: #ffd700; font-weight: 700; margin-right: 8px; }
+  .effect-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin: 10px 0; }
+  .effect-card { border: 1px solid #e0e0e0; border-radius: 8px; padding: 12px; background: #fafaf8; }
+  .effect-card .name { font-weight: 700; font-size: 13px; color: #1a1a2e; margin-bottom: 6px; }
+  .effect-card .eng { font-size: 11px; color: #888; margin-bottom: 6px; }
+  .effect-card .desc { font-size: 12px; color: #555; line-height: 1.6; }
+  .num-box { display: inline-block; background: #1a1a2e; color: white; border-radius: 4px; padding: 2px 7px; font-size: 12px; font-weight: 700; margin-right: 6px; }
+  .media-item { border: 1px solid #e0e0e0; border-radius: 6px; padding: 10px 12px; margin: 6px 0; }
+  .media-name { font-weight: 700; font-size: 13px; color: #1a1a2e; }
+  .media-tag { font-size: 11px; color: #888; margin-left: 8px; }
+  .media-detail { font-size: 12px; color: #555; margin-top: 4px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>📚 기말고사 종합정리노트</h1>
+  <div style="display:flex;gap:8px;align-items:center">
+    <span class="exam-badge">OX + 객관식 70% 이상</span>
+    <span class="exam-badge" style="background:#333">단답형 30%</span>
+  </div>
+</div>
+
+<div class="nav" id="nav">
+  <button class="nav-btn active" onclick="showSection('s1')">미디어 효과</button>
+  <button class="nav-btn" onclick="showSection('s2')">우리나라 언론</button>
+  <button class="nav-btn" onclick="showSection('s3')">시민 · 정치권</button>
+  <button class="nav-btn" onclick="showSection('s4')">우리나라 선거</button>
+  <button class="nav-btn" onclick="showSection('s5')">미국 선거</button>
+  <button class="nav-btn" onclick="showSection('s6')">정치광고</button>
+  <button class="nav-btn" onclick="showSection('s7')">TV토론</button>
+</div>
+
+<div class="container">
+
+<!-- ===== S1: 미디어 효과 ===== -->
+<div class="section active" id="s1">
+
+  <div class="chapter open">
+    <div class="chapter-header" onclick="toggle(this)">
+      <div class="chapter-num">1</div>
+      <div class="chapter-title">미디어의 기능과 효과 (1-9쪽)</div>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="chapter-body">
+
+      <h3>1) 미디어 on 시민 — 8가지 핵심 효과</h3>
+      <div class="effect-grid">
+        <div class="effect-card">
+          <div class="name">① 환경감시 기능</div>
+          <div class="eng">Watchdog function</div>
+          <div class="desc">미디어는 감시견(watchdog)으로서 정치권을 모니터하여 시민에게 중요한 정치적 정보를 전달한다.</div>
+        </div>
+        <div class="effect-card">
+          <div class="name">② 의제설정 효과</div>
+          <div class="eng">Agenda-setting effect</div>
+          <div class="desc">특정 이슈를 <span class="highlight">반복 보도</span>함으로써 무엇이 중요한 사회적 의제인지 결정한다. 미디어가 보도하지 않으면 사회 의제가 되지 못한다.</div>
+        </div>
+        <div class="effect-card">
+          <div class="name">③ 프레이밍 효과</div>
+          <div class="eng">Framing effect</div>
+          <div class="desc">이슈의 다양한 측면 중 <span class="highlight">특정 측면/시각/속성</span>에 주목하여 보도함으로써 시민이 이슈를 어떻게 인식하는지에 영향을 미친다.</div>
+        </div>
+        <div class="effect-card">
+          <div class="name">④ 프라이밍 효과</div>
+          <div class="eng">Priming effect</div>
+          <div class="desc">시민들이 정치인을 평가할 때 <span class="highlight">미디어가 설정한 의제와 프레임</span>이 평가 기준이 된다. 정치인/정당은 자신에게 유리한 이슈가 의제가 되도록 전략적 노력을 기울인다.</div>
+        </div>
+        <div class="effect-card">
+          <div class="name">⑤ 침묵의 나선 효과</div>
+          <div class="eng">Spiral of silence</div>
+          <div class="desc">매스미디어가 특정 입장으로 보도 → 대중이 이를 여론이라고 인식 → 자신의 입장이 다르면 <span class="highlight">고립에 대한 두려움(fear of isolation)</span>으로 침묵 → 반대 시각은 사라짐</div>
+        </div>
+        <div class="effect-card">
+          <div class="name">⑥ 다원적 무지</div>
+          <div class="eng">Pluralistic ignorance</div>
+          <div class="desc">사회 구성원들이 집단적으로 <span class="highlight">잘못된 정보를 여론이라고 인식</span>하는 상태. 상호교류 부재 시 더 잘 발생하며, 적극적 소통으로 해소 가능.</div>
+        </div>
+        <div class="effect-card">
+          <div class="name">⑦ 적대적 미디어 효과</div>
+          <div class="eng">Hostile media effect</div>
+          <div class="desc">특정 대상에 강한 태도를 가진 사람은 <span class="highlight">중립적 보도도 자신에게 불리한 것</span>으로 인식. 언론사가 여·야 양쪽에서 항의받는 이유를 설명.</div>
+        </div>
+        <div class="effect-card">
+          <div class="name">⑧ 제3자 효과</div>
+          <div class="eng">Third-person effect</div>
+          <div class="desc">미디어가 <span class="highlight">자신에게는 영향 없다(과소평가)</span>, 타인에게는 강한 효과(과대평가)라고 인식. 예방·규제 행동으로 이어짐.</div>
+        </div>
+      </div>
+
+      <div class="effect-grid">
+        <div class="effect-card">
+          <div class="name">⑨ 배양효과(계발효과)</div>
+          <div class="eng">Cultivation theory</div>
+          <div class="desc">TV를 자주 시청하는 사람은 <span class="highlight">TV에서 묘사된 내용을 현실이라고 일반화</span>. 범죄드라마 → 세상이 위험하다고 인식, 흑인 범죄율을 실제보다 높게 인식 등.</div>
+        </div>
+        <div class="effect-card">
+          <div class="name">⑩ 정치적 양극화</div>
+          <div class="eng">Political polarization</div>
+          <div class="desc">SNS의 보편화 + 선택적 커뮤니케이션 경향 → 자신의 성향과 동질적인 정보만 소비 → 기존 정치/이념 성향이 <span class="highlight">강화·극단화</span>.</div>
+        </div>
+      </div>
+
+      <h3>2) 정치권 on 미디어 — 의제형성(Agenda-building)</h3>
+      <div class="concept">
+        <div class="concept-name">의제형성(Agenda-building)</div>
+        <div class="concept-desc">미디어의 의제가 결정되는 과정. 의제형성 요인: ① 전통적 뉴스가치(시의성·근접성·저명성·영향성·갈등성·흥미성·특이성), ② 대통령/정치지도자의 의제, ③ 기자 개인의 가치, ④ 미디어 조직의 가치, ⑤ 사회/정치 체제</div>
+      </div>
+      <div class="concept">
+        <div class="concept-name">퍼블리시티(Publicity)</div>
+        <div class="concept-desc">자신에게 유리한 측면이 언론에 의해 <span class="highlight">자발적으로</span> 보도되도록 하는 홍보 전략. 유료 정치광고와 달리 비용 없음. 보도자료 배포, 기자회견 등.</div>
+      </div>
+      <div class="concept">
+        <div class="concept-name">물타기</div>
+        <div class="concept-desc">불리한 이슈/프레임에 관심이 집중되면 다른 이슈/프레임을 퍼뜨려 관심을 분산·희석시키는 전략.<br>
+        예시: 전두환 정권 → 프로야구(1982)/축구(1983) 출범, 금강산 댐 사건, 88 서울올림픽 / 세월호 → 유병언·구원파</div>
+      </div>
+
+      <div class="concept">
+        <div class="concept-name">이슈소유권(Issue Ownership)</div>
+        <div class="concept-desc">특정 이슈에서 유권자들이 인식하기에 특정 정당/정치인이 상대적으로 뛰어난 능력을 가지고 있다고 생각할 때 그 정당/정치인이 '이슈소유권'을 가진다고 함.<br>
+        진보: 사회복지·연금·교육·의료·환경 / 보수: 예산/세금·대북/안보·범죄/안전</div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== S2: 우리나라 언론 ===== -->
+<div class="section" id="s2">
+
+  <div class="chapter open">
+    <div class="chapter-header" onclick="toggle(this)">
+      <div class="chapter-num">2</div>
+      <div class="chapter-title">우리나라 언론 환경 (1-9쪽)</div>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="chapter-body">
+
+      <h3>1) 신문 — 종합중앙일간지</h3>
+      <table>
+        <tr><th>신문사</th><th>성향</th><th>지배구조 핵심</th></tr>
+        <tr><td><strong>조선일보</strong></td><td><span class="tag red">보수</span></td><td>방상훈(약30%)·방씨 일가 족벌. TV조선 관계사. 2025년 매출 3위.</td></tr>
+        <tr><td><strong>중앙일보</strong></td><td><span class="tag red">보수</span></td><td>홍석현→홍정도. 중앙홀딩스(64.7%), JTBC·콘텐트리중앙 계열. 2025년 매출 1위.</td></tr>
+        <tr><td><strong>동아일보</strong></td><td><span class="tag red">보수</span></td><td>김재호(22.2%)·김씨 일가 족벌. 채널A 관계사.</td></tr>
+        <tr><td><strong>한겨레</strong></td><td><span class="tag green">진보</span></td><td>우리사주조합(10.93%)+일반 국민주주 신문</td></tr>
+        <tr><td><strong>경향신문</strong></td><td><span class="tag green">진보</span></td><td>자사주+우리사주조합으로 구성</td></tr>
+        <tr><td><strong>국민일보</strong></td><td><span class="tag red">보수</span></td><td>국민문화재단(조용기 목사 일가) 100% 지분</td></tr>
+        <tr><td><strong>세계일보</strong></td><td><span class="tag red">보수</span></td><td>통일교재단 63% → 통일교 언론</td></tr>
+      </table>
+
+      <h3>2) 신문 — 경제일간지</h3>
+      <table>
+        <tr><th>신문사</th><th>특징</th></tr>
+        <tr><td><strong>매일경제</strong></td><td>정진기 언론문화재단(46.5%) 지배. MBN 관계사. 세계지식포럼 등 사업.</td></tr>
+        <tr><td><strong>한국경제</strong></td><td>현대차(20.5%)·SK텔레콤(13.8%)·LG(13.6%) 등 대기업 지분 55%. 2025년 매출 2위. 한경 유튜브 채널 인기.</td></tr>
+        <tr><td><strong>머니투데이</strong></td><td>뉴스1·뉴시스(민영뉴스통신사) 계열. 상대적으로 진보 성향.</td></tr>
+      </table>
+
+      <h3>3) 방송 — 지상파(공영방송)</h3>
+      <div class="info-box">공영방송(KBS, MBC, EBS)은 정부 영향력 하에 있어 정권 변화에 따라 정치 성향이 달라질 가능성이 구조적으로 내재되어 있다. → 방송3법으로 개편 시도.</div>
+
+      <table>
+        <tr><th>방송사</th><th>지배구조</th><th>사장(현재)</th></tr>
+        <tr><td><strong>KBS</strong></td><td>정부 100% 소유. KBS이사회(15인)가 선출 → 대통령 임명</td><td>박장범 (2024.12~2027.12)</td></tr>
+        <tr><td><strong>MBC</strong></td><td>방송문화진흥회(70%)+정수장학회(30%). 방문진 이사회 선출</td><td>안형준 (임기만료 후 유지 중)</td></tr>
+        <tr><td><strong>EBS</strong></td><td>방통위 의결로 위원장이 임명</td><td>김유열 (취소 판결로 유지)</td></tr>
+        <tr><td><strong>SBS</strong></td><td>TY홀딩스(태영건설 지주회사) 36.9% 대주주. 민영방송.</td><td>-</td></tr>
+      </table>
+
+      <h3>4) 방송 — 유선방송(종편·보도전문)</h3>
+      <table>
+        <tr><th>채널</th><th>성향</th><th>대주주</th></tr>
+        <tr><td>JTBC</td><td><span class="tag green">진보</span> (종편 유일)</td><td>중앙홀딩스 25%+중앙일보 5%</td></tr>
+        <tr><td>TV조선</td><td><span class="tag red">보수</span></td><td>조선일보 22%</td></tr>
+        <tr><td>채널A</td><td><span class="tag red">보수</span></td><td>김재호(동아일보 회장) 30%</td></tr>
+        <tr><td>MBN</td><td><span class="tag red">보수</span></td><td>매일경제신문 26.7%</td></tr>
+        <tr><td>연합뉴스TV</td><td>정권친화적</td><td>연합뉴스 28% (뉴스통신진흥회+KBS+MBC 지분)</td></tr>
+        <tr><td>YTN</td><td>민영화 후 보수화</td><td>유진그룹 30.95% (2023년 인수, 현재 재판 중)</td></tr>
+      </table>
+
+      <h3>5) 뉴스통신사</h3>
+      <ul>
+        <li><strong>연합뉴스</strong>: 국가기간통신사, 매년 정부로부터 약 300억 지원</li>
+        <li><strong>뉴스1·뉴시스</strong>: 머니투데이 계열 민영 통신사</li>
+      </ul>
+
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== S3: 시민 · 정치권 ===== -->
+<div class="section" id="s3">
+
+  <div class="chapter open">
+    <div class="chapter-header" onclick="toggle(this)">
+      <div class="chapter-num">3</div>
+      <div class="chapter-title">Ⅱ. 시민 — 연령별·지역별·성별 정치성향</div>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="chapter-body">
+
+      <h3>연령별 유권자분포 추이 (40대 미만 비율 감소)</h3>
+      <table>
+        <tr><th>선거</th><th>40대 미만</th><th>50대</th><th>60대 이상</th></tr>
+        <tr><td>2012년 18대 대선</td><td>60%</td><td>19.2%</td><td>20.8%</td></tr>
+        <tr><td>2022년 20대 대선</td><td>50.7%</td><td>19.5%</td><td>29.8%</td></tr>
+        <tr><td>2025년 21대 대선</td><td>47.3%</td><td>19.6%</td><td>33.1%</td></tr>
+      </table>
+
+      <h3>연령별 정치성향 핵심 정리</h3>
+      <ul>
+        <li>진보성향 가장 강한 연령: <span class="highlight">40대</span> (70~80년대생)</li>
+        <li>보수성향 가장 강한 연령: <span class="highlight">70대 이상</span> (50년대 미만생)</li>
+        <li>60대 미만 → 진보 우세 / 60대 이상 → 보수 우세</li>
+        <li><strong>20대 대선부터</strong> 20~30대 남성과 여성의 정치성향이 뚜렷한 대조 (젠더갈등의 정치화)</li>
+        <li>20대 남성: 22대 대선에서 윤석열 지지가 이재명보다 <span class="highlight">22.4%</span> 높았음</li>
+      </ul>
+
+      <h3>역대 대선 연령별 투표율</h3>
+      <div class="info-box">
+        진보성향 40대 투표율(76.4%) vs 보수성향 70대 투표율(87.8%) → <strong>11.4% 차이</strong>
+        → 70대 투표율이 훨씬 높아 보수에 구조적으로 유리한 상황
+      </div>
+
+      <h3>지역별 정치성향</h3>
+      <table>
+        <tr><th>지역</th><th>성향</th><th>유권자 비율</th></tr>
+        <tr><td>수도권(서울·경기·인천)</td><td>불일정</td><td>50%(122석)</td></tr>
+        <tr><td>전라도·제주도</td><td><span class="tag green">진보</span></td><td>10%+1.3%</td></tr>
+        <tr><td>경상도(TK+PK)</td><td><span class="tag red">보수</span></td><td>25%(65석)</td></tr>
+        <tr><td>강원도</td><td><span class="tag red">보수</span></td><td>3%</td></tr>
+        <tr><td>충청도</td><td>불일정</td><td>10.6%</td></tr>
+      </table>
+
+      <div class="warn-box">보수 강세 경상도+강원도 유권자 수는 진보 강세 전라도+제주도의 약 2.6배 → 지역구도상 보수에 유리</div>
+
+      <h3>우리나라 유권자 특징</h3>
+      <ul>
+        <li>SES(사회경제적 수준) 최상층 → 보수, 중·상층 → 진보, 최하층 → 보수 ("계급배반투표")</li>
+        <li>소득이 높을수록 세금인상·복지확대 찬성 (아이러니한 결과)</li>
+        <li>Age Effect(나이 들수록 보수화) vs Cohort Effect(세대 고유성향 유지) 논쟁</li>
+        <li>386세대: 20대 진보 → 40대(2002년 보수지지 37%) → 50대(2012년 64%) → 60대(2022년 67%) 로 보수화 경향</li>
+      </ul>
+
+      <h3>20대 대선 vs 21대 대선 비교</h3>
+      <div class="info-box">이재명: 47.83%(20대) → 49.42%(21대) +1.59% / 국민의힘 후보: 48.56% → 41.15% -7.41%<br>→ 12.3 비상계엄으로 움직인 유권자 비율 약 9%</div>
+
+    </div>
+  </div>
+
+  <div class="chapter">
+    <div class="chapter-header" onclick="toggle(this)">
+      <div class="chapter-num">4</div>
+      <div class="chapter-title">Ⅲ. 정치권 — 의전서열·공무원 급수·국회 구조</div>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="chapter-body">
+
+      <h3>대한민국 의전서열 (상위 10위)</h3>
+      <ol>
+        <li>대통령</li>
+        <li>국회의장 (총리급, 2년): 우원식</li>
+        <li>대법원장 (총리급, 6년): 조희대</li>
+        <li>헌법재판소장 (총리급, 6년): 김상환</li>
+        <li>국무총리 (총리급): 김민석</li>
+        <li>중앙선거관리위원장 (총리급, 6년)</li>
+        <li>여당대표: 정청래</li>
+        <li>야당대표: 장동혁</li>
+        <li>국회부의장 (부총리급, 2년): 이학영, 주호영</li>
+        <li>감사원장 (부총리급, 4년): 김호철</li>
+      </ol>
+
+      <h3>5대 사정기관 vs 5대 권력기관</h3>
+      <div class="compare">
+        <div class="compare-box">
+          <h4>5대 사정기관</h4>
+          <ul>
+            <li>검찰청</li>
+            <li>경찰청</li>
+            <li>감사원</li>
+            <li>국세청</li>
+            <li>공정거래위원회</li>
+          </ul>
+        </div>
+        <div class="compare-box">
+          <h4>5대 권력기관</h4>
+          <ul>
+            <li>검찰청</li>
+            <li>경찰청</li>
+            <li>감사원</li>
+            <li>국세청</li>
+            <li>국정원</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3>국회가 선출/임명하는 공직 vs 임명동의가 필요한 공직</h3>
+      <div class="compare">
+        <div class="compare-box">
+          <h4>국회가 직접 선출/임명 (9인)</h4>
+          <ul>
+            <li>국회의장</li>
+            <li>국회부의장 2인</li>
+            <li>헌법재판관 3인 (총9인 중)</li>
+            <li>중앙선관위 위원 3인 (총9인 중)</li>
+          </ul>
+        </div>
+        <div class="compare-box">
+          <h4>국회 임명동의 필요 (17인)</h4>
+          <ul>
+            <li>대법원장</li>
+            <li>대법관 13인 (2029년까지 26명 증원)</li>
+            <li>헌법재판소장</li>
+            <li>국무총리</li>
+            <li>감사원장</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3>국회 주요 상임위원회</h3>
+      <table>
+        <tr><th>상임위</th><th>구성원수</th><th>주요 역할</th></tr>
+        <tr><td>국회운영위원회</td><td>28인</td><td>국회운영 + 대통령·직속기관 국정감사</td></tr>
+        <tr><td>법제사법위원회(법사위)</td><td>18인</td><td>법안 2차 심사. 야당이 맡는 관례. 법사위원장이 핵심.</td></tr>
+        <tr><td>정무위원회</td><td>24인</td><td>국무총리·공정위·금융위 등 담당</td></tr>
+        <tr><td>예결산특별위원회</td><td>50인</td><td>예산안 종합심사 (11월), 위원 임기 1년</td></tr>
+      </table>
+
+      <h3>2012년 국회선진화법 핵심 내용</h3>
+      <ul>
+        <li>① <strong>직권상정</strong>: 천재지변·국가비상사태 또는 교섭단체장 합의 시에만 가능</li>
+        <li>② <strong>안건조정제도</strong>: 상임위 재적의원 1/3 이상 요구 → 여야 3:3 안건조정위원회 구성, 최장 90일, 2/3찬성(4인)으로 확정</li>
+        <li>③ <strong>패스트트랙</strong>: 재적의원 3/5 또는 소관상임위 3/5 동의 → 상임위(180일)+법사위(90일)+본회의부의(60일) = 최장 330일</li>
+        <li>④ <strong>필리버스터</strong>: 재적의원 1/3 이상 요청 → 무제한토론. 24시간 후 3/5(180명) 찬성 시 강제중단</li>
+      </ul>
+
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== S4: 우리나라 선거 ===== -->
+<div class="section" id="s4">
+
+  <div class="chapter open">
+    <div class="chapter-header" onclick="toggle(this)">
+      <div class="chapter-num">5</div>
+      <div class="chapter-title">Ⅰ. 대통령선거 (1-3쪽)</div>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="chapter-body">
+
+      <h3>대통령선거제도 일반</h3>
+      <table>
+        <tr><th>항목</th><th>내용</th></tr>
+        <tr><td>임기</td><td><span class="highlight">5년 단임제</span></td></tr>
+        <tr><td>선거방식</td><td>국민직접선거, 1인 1표, 전국단순권역 다득표 후보 선출</td></tr>
+        <tr><td>선거권</td><td>선거일 기준 <span class="highlight">18세 이상</span> (2019년 개정, 2020년 총선부터 적용)</td></tr>
+        <tr><td>피선거권</td><td>국내 5년 이상 거주, <span class="highlight">40세 이상</span> 대한민국 국민</td></tr>
+        <tr><td>공식선거운동 기간</td><td><span class="highlight">22일간</span> (선거일 기준 22일 전부터 선거일 전날까지)</td></tr>
+        <tr><td>역대 투표율</td><td>20대 77.1%, 19대 77.2%, 18대 75.8%, 17대 63%</td></tr>
+      </table>
+
+      <h3>대통령선거일</h3>
+      <ul>
+        <li>정식선거일: 임기만료일 기준 <span class="highlight">70일 전 이후 첫 번째 수요일</span></li>
+        <li>궐위 시: 궐위 날부터 <span class="highlight">60일 이내</span> 실시</li>
+        <li>21대 대선: 원래 27년 3월 예정 → 윤석열 탄핵 인용(25년 4월 4일) → 60일째인 <span class="highlight">25년 6월 3일</span> 실시</li>
+        <li>21대 대통령 임기: 25년 6월 4일 ~ 30년 6월 3일</li>
+      </ul>
+
+      <h3>사전투표 (2014년 6회 지방선거부터 실시)</h3>
+      <ul>
+        <li>선거일 기준 4일 전부터 이틀간 실시</li>
+        <li>선거일이 수요일인 경우: 금·토 실시 / 화요일인 경우: 목·금 실시</li>
+        <li>전국 모든 사전투표소에서 가능 (본투표는 주민등록 지정 투표소만)</li>
+      </ul>
+
+      <h3>대통령선거 후보자 TV토론회</h3>
+      <ul>
+        <li>중앙선관위 주최, 중앙선거방송토론위원회 주관 (11인 구성)</li>
+        <li><span class="highlight">초청 자격 있는 후보 3회</span> + 군소후보 대상 1회 (의무적)</li>
+        <li>초청 기준: ① 국회의원 5석 이상 정당 후보 OR ② 이전 공직선거 3% 이상 득표 정당 후보 OR ③ 후보등록 마감 30일 전 여론조사 평균 지지율 5% 이상</li>
+      </ul>
+
+      <h3>선거비용 보전 기준</h3>
+      <table>
+        <tr><th>득표율</th><th>기탁금</th><th>선거비용</th></tr>
+        <tr><td><strong>당선 or 15% 이상</strong></td><td>전액 반환</td><td>전액 보전</td></tr>
+        <tr><td><strong>10% 이상 ~ 15% 미만</strong></td><td>50% 반환</td><td>50% 보전</td></tr>
+        <tr><td><strong>10% 미만</strong></td><td>몰수</td><td>보전 없음</td></tr>
+      </table>
+      <div class="info-box">대통령 기탁금: 3억원 / 21대 대선 법정선거비용 한도: 588억원</div>
+
+    </div>
+  </div>
+
+  <div class="chapter">
+    <div class="chapter-header" onclick="toggle(this)">
+      <div class="chapter-num">6</div>
+      <div class="chapter-title">Ⅱ. 국회의원선거 (4-5쪽)</div>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="chapter-body">
+
+      <h3>22대 총선 기준 선거제도</h3>
+      <table>
+        <tr><th>항목</th><th>내용</th></tr>
+        <tr><td>전체의석</td><td><span class="highlight">300석</span> (지역구 254석 + 준연동형 비례대표 46석)</td></tr>
+        <tr><td>선거방식</td><td>유권자 1인 2표 (지역구 1표 + 정당 1표, 2004년 17대 총선부터)</td></tr>
+        <tr><td>소선거구제</td><td>1지역구에서 1당선자 배출</td></tr>
+        <tr><td>준연동형 비례</td><td>46석에 연동률 50% 적용</td></tr>
+        <tr><td>봉쇄조항</td><td>비례대표 3% 이상 OR 지역구 5석 이상 득표 정당에만 배분</td></tr>
+        <tr><td>선거일</td><td>임기만료(5월30일) 전 50일 이후 첫 번째 수요일</td></tr>
+        <tr><td>후보자 기탁금</td><td>지역구 1,500만원 / 비례대표 500만원</td></tr>
+        <tr><td>지역구 선거비용 한도</td><td>평균 약 2.2억 / 최대 4.12억 / 최소 1.65억</td></tr>
+      </table>
+
+      <div class="warn-box">비례대표 의원이 소속 정당을 <strong>자진 탈당</strong>하면 의원직 상실. 그러나 <strong>제명</strong>에 의해서는 의원직이 상실되지 않음. → 거대양당 비례대표 의원의 편법 이용 문제</div>
+
+      <h3>소선거구제의 문제점</h3>
+      <ul>
+        <li>지역구 간 인구 편차 (헌재: 최대 2:1 초과 금지)</li>
+        <li>정당득표율과 의석비율의 불비례성 → 사표 대량 발생</li>
+        <li>군소정당 원내진출 어려움</li>
+        <li>지역주의 정치구도 유지·재생산</li>
+      </ul>
+
+    </div>
+  </div>
+
+  <div class="chapter">
+    <div class="chapter-header" onclick="toggle(this)">
+      <div class="chapter-num">7</div>
+      <div class="chapter-title">Ⅲ. 전국동시지방선거 (7-11쪽)</div>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="chapter-body">
+
+      <h3>유권자 1인이 행사하는 표 수</h3>
+      <table>
+        <tr><th>지역</th><th>표 수</th><th>대상</th></tr>
+        <tr><td>일반 지역</td><td><span class="highlight">7표</span></td><td>광역단체장+광역의원(지역구+비례)+기초단체장+기초의원(지역구+비례)+교육감</td></tr>
+        <tr><td>제주특별자치도</td><td><span class="highlight">5표</span></td><td>기초단체장·기초의원 없음, 교육의원 선출</td></tr>
+        <tr><td>세종특별자치시</td><td><span class="highlight">4표</span></td><td>기초단체장·기초의원 없음</td></tr>
+      </table>
+
+      <h3>선거방식</h3>
+      <ul>
+        <li>4년에 한 번 실시 (총선 2년 후)</li>
+        <li>선거일: 지방단체장 임기만료일(6월30일) 전 30일 이후 첫 번째 수요일</li>
+        <li>선거운동기간: 선거일 전날까지 <span class="highlight">13일간</span></li>
+        <li>소선거구제(광역단체장·교육감·기초단체장·광역의원) + 중선거구제(기초의원, 2-4인 선출) 혼합</li>
+      </ul>
+
+      <h3>현재 전국 지방선거 선출직</h3>
+      <ul>
+        <li>광역단체장 17인: 특별시장(1)+광역시장(6)+도지사(9)+세종시장(1)</li>
+        <li>교육감 17인 (2010년 5회 지방선거부터 직선제)</li>
+        <li>기초단체장: 특별시·광역시 구청장 + 각 도의 시장·군수</li>
+        <li>광역의원·기초의원</li>
+        <li>임기: 교육감·광역단체장·기초단체장 4년, <span class="highlight">3번 연임 가능</span></li>
+      </ul>
+
+    </div>
+  </div>
+
+  <div class="chapter">
+    <div class="chapter-header" onclick="toggle(this)">
+      <div class="chapter-num">8</div>
+      <div class="chapter-title">Ⅳ. 선거관련 규정 — 완전선거공영제 (13-23쪽)</div>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="chapter-body">
+
+      <h3>완전선거공영제</h3>
+      <p>국가의 일꾼을 선출하는 공직선거는 공공 이벤트이므로 선거에 사용되는 모든 비용을 국가가 부담하여, 재력에 관계없이 역량 있는 후보에게 기회를 균등히 제공.</p>
+
+      <h3>후보자 기탁금 액수</h3>
+      <table>
+        <tr><th>공직</th><th>기탁금</th></tr>
+        <tr><td>대통령</td><td>3억원</td></tr>
+        <tr><td>국회의원</td><td>1,500만원</td></tr>
+        <tr><td>광역단체장·교육감</td><td>5,000만원</td></tr>
+        <tr><td>기초단체장</td><td>1,000만원</td></tr>
+        <tr><td>광역의회의원</td><td>300만원</td></tr>
+        <tr><td>기초의회의원</td><td>200만원</td></tr>
+      </table>
+
+      <h3>정당 국고보조금(경상보조금) 배분 기준</h3>
+      <table>
+        <tr><th>조건</th><th>배분 비율</th></tr>
+        <tr><td>교섭단체 구성 정당 (20석 이상)</td><td>총액의 50%를 균등 배분</td></tr>
+        <tr><td>5석 이상 20석 미만</td><td>총액의 5%씩 지급</td></tr>
+        <tr><td>0~5석 미만 (총선 2%이상 or 1석+지방선거 0.5%이상 득표)</td><td>총액의 2%씩 지급</td></tr>
+        <tr><td>잔여금 1/2</td><td>의석수 비율에 따라 배분</td></tr>
+        <tr><td>잔여금 나머지 1/2</td><td>직전 총선 득표율에 따라 배분</td></tr>
+      </table>
+      <div class="info-box">2026년 경상보조금: 530억원 / 유권자 1인당 1,211원</div>
+
+      <h3>선거보조금 지급 연도</h3>
+      <p>대통령선거, 총선거, 전국동시지방선거가 있는 해에 경상보조금과 같은 액수를 추가로 지급.</p>
+
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== S5: 미국 선거 ===== -->
+<div class="section" id="s5">
+
+  <div class="chapter open">
+    <div class="chapter-header" onclick="toggle(this)">
+      <div class="chapter-num">9</div>
+      <div class="chapter-title">미국의 공직선거 — 종류 및 대통령선거 (1-9쪽)</div>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="chapter-body">
+
+      <h3>미국 선거의 종류</h3>
+      <table>
+        <tr><th>종류</th><th>주기</th><th>내용</th></tr>
+        <tr><td><strong>대통령선거</strong></td><td>4년마다</td><td>대통령+상원(1/3)+하원(전체)+주지사 등. 투표율 60-66%. 2024년 11월 5일 실시 (투표율 64.3%)</td></tr>
+        <tr><td><strong>중간선거</strong></td><td>대통령선거 2년 후</td><td>상원(1/3)+하원(전체)+주지사 등. 투표율 30-40%(최근 높아짐 2018년 50.3%). <span class="highlight">여당이 평균 하원 30석, 상원 4석 잃음</span></td></tr>
+        <tr><td><strong>오프시즌 선거</strong></td><td>대선·중간선거 사이</td><td>5개 주에서 주지사·시장 등 선출</td></tr>
+      </table>
+
+      <h3>대통령선거 기본 사항</h3>
+      <table>
+        <tr><th>항목</th><th>내용</th></tr>
+        <tr><td>선거방식</td><td>간접선거: 시민투표 → 선거인단(538명) 선출 → 선거인단이 대통령 선출</td></tr>
+        <tr><td>선거인단 수</td><td>상원(100)+하원(435)+DC(3) = <span class="highlight">538명</span>. 당선 기준: <span class="highlight">270명 이상</span></td></tr>
+        <tr><td>선거권</td><td>18세 이상 시민권자</td></tr>
+        <tr><td>피선거권</td><td>미국 태생(natural born citizen), <span class="highlight">35세 이상</span>, 14년 이상 체류</td></tr>
+        <tr><td>임기</td><td><span class="highlight">4년 중임제</span></td></tr>
+        <tr><td>선거일</td><td>11월 첫 번째 월요일이 지난 화요일 (11월 2~8일)</td></tr>
+        <tr><td>취임일</td><td><span class="highlight">1월 20일</span></td></tr>
+      </table>
+
+      <h3>선거인단 선출 방식</h3>
+      <ul>
+        <li>대부분의 주(48개): <span class="highlight">승자독식 방식</span> (1표라도 더 많은 후보가 그 주의 선거인단 전부)</li>
+        <li>예외: <span class="highlight">Maine주, Nebraska주</span> → 득표율에 따른 배분 방식</li>
+        <li>배신 선거인단(unfaithful vote): 대부분의 주는 허용. 콜로라도·미네소타·워싱턴·미시간 등 <span class="highlight">14개 주</span>는 무효 처리 후 재투표</li>
+      </ul>
+
+      <div class="warn-box">총 시민득표(popular vote)가 많아도 선거에서 질 수 있음. 2000년(Gore), 2016년(Clinton)이 대표 사례.</div>
+
+      <h3>하원·상원의원 선거</h3>
+      <div class="compare">
+        <div class="compare-box usa">
+          <h4>하원의원</h4>
+          <ul>
+            <li>총 435명 (1911년 이후 고정)</li>
+            <li>임기 2년, 연임제한 없음</li>
+            <li>인구비례로 각 주에 배분</li>
+            <li>소선거구제 (우리나라와 동일)</li>
+            <li>재선 비율 보통 90%+</li>
+          </ul>
+        </div>
+        <div class="compare-box usa">
+          <h4>상원의원</h4>
+          <ul>
+            <li>총 100명 (각 주 2명 고정)</li>
+            <li>임기 6년, 연임제한 없음</li>
+            <li>2년마다 1/3씩 선출</li>
+            <li>부통령이 상원의장 (동수 시 캐스팅보트)</li>
+            <li>재선 비율 80-90%</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="chapter">
+    <div class="chapter-header" onclick="toggle(this)">
+      <div class="chapter-num">10</div>
+      <div class="chapter-title">미국 대통령 선거 절차 (5-9쪽)</div>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="chapter-body">
+
+      <h3>① 예비선거 (Primaries) — 1월~6월</h3>
+      <div class="compare">
+        <div class="compare-box">
+          <h4>코커스 (Caucus)</h4>
+          <ul>
+            <li>정당이 직접 관장</li>
+            <li>지역 당원·간부만 참여</li>
+            <li>토론·회의 후 거수/투표</li>
+            <li>Iowa, Nevada, Wyoming 등</li>
+          </ul>
+        </div>
+        <div class="compare-box">
+          <h4>프라이머리 (Primary)</h4>
+          <ul>
+            <li>주 정부가 관장</li>
+            <li>일반 시민 참여</li>
+            <li>일반 투표방식 (비밀투표)</li>
+            <li>New Hampshire, Texas 등</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3>선언대의원 vs 비선언대의원</h3>
+      <table>
+        <tr><th>구분</th><th>선언대의원(Pledged delegate)</th><th>비선언대의원(Unpledged)</th></tr>
+        <tr><td>선출방식</td><td>예비선거로 선출</td><td>당연직 (상·하원의원, 전직 정·부통령 등)</td></tr>
+        <tr><td>투표의무</td><td>경선결과에 따라 특정 후보 지지 의무</td><td>자유롭게 선택 가능</td></tr>
+        <tr><td>민주당 수</td><td>약 4,000명 (85%)</td><td>약 700명 (슈퍼대의원, 15%)</td></tr>
+        <tr><td>공화당 수</td><td>약 2,270명 (91%)</td><td>약 150명 (9%)</td></tr>
+      </table>
+
+      <div class="info-box"><strong>슈퍼화요일</strong>: 3월 첫 번째 주 화요일. 15개 주가 동시에 예비선거 실시. 각 정당 대의원의 약 1/4 선출.</div>
+
+      <h3>② 전당대회 (Convention) — 7~9월</h3>
+      <ul>
+        <li>4년에 한 번, 일반적으로 야당 먼저·여당 나중</li>
+        <li>대부분 형식적 추대 행사. 단, 1차 투표서 과반 미달 시 → <span class="highlight">중재전당대회</span> → 경선 결과 구애받지 않고 자유 선택 가능</li>
+      </ul>
+
+      <h3>③ 본선거 (General Election) → ④ 선거인단 대통령 선출</h3>
+      <ul>
+        <li>선거인단 투표: 12월 두 번의 수요일이 지난 월요일에 각 주 주도(州都)에서 실시</li>
+        <li>결과는 워싱턴으로 이송 → <span class="highlight">1월 6일</span> 상·하의원 앞에서 개표</li>
+        <li>과반(270표) 미달 시: 대통령은 <span class="highlight">하원</span>(각 주 1표, 26표 이상), 부통령은 <span class="highlight">상원</span>(100명 각 1표, 51표 이상)에서 선출</li>
+      </ul>
+
+    </div>
+  </div>
+
+  <div class="chapter">
+    <div class="chapter-header" onclick="toggle(this)">
+      <div class="chapter-num">11</div>
+      <div class="chapter-title">요인별 투표 성향 + 2016년 트럼프 당선 분석 (14-22쪽)</div>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="chapter-body">
+
+      <h3>미국 요인별 투표 성향 정리</h3>
+      <table>
+        <tr><th>요인</th><th>민주당(진보)</th><th>공화당(보수)</th><th>특이사항</th></tr>
+        <tr><td>지역</td><td>서부해안, 동북부, 뉴잉글랜드</td><td>남부 바이블벨트, 서중부, 서남부</td><td>스윙 스테이트(경합주)에 선거 집중</td></tr>
+        <tr><td>성별</td><td>여성</td><td>남성</td><td>2024: 남성 55%공화, 여성 53%민주</td></tr>
+        <tr><td>인종</td><td>흑인(86%), 히스패닉, 아시안</td><td>백인(57%)</td><td>2024: 히스패닉의 공화당 지지 급증(46%)</td></tr>
+        <tr><td>연령</td><td>20~30대</td><td>60대 이상</td><td>우리나라와 동일 패턴</td></tr>
+        <tr><td>소득</td><td>저소득층(2020년까지)</td><td>고소득층(2020년까지)</td><td><span class="highlight">2024년 역전</span>: 민주=고소득·전문직, 공화=저소득·비대졸 노동계층</td></tr>
+        <tr><td>교육수준</td><td>고학력(2016년 이후)</td><td>저학력(2016년 이후)</td><td>2024: 고졸이하 트럼프 62%, 대학원 이상 민주 59%</td></tr>
+        <tr><td>종교</td><td>유대교, 기타종교, 무교</td><td>개신교, 몰몬교, 천주교</td><td>천주교는 상대적으로 보수 성향 약했으나 2024년 트럼프 56%</td></tr>
+      </table>
+
+      <h3>2016년 트럼프 당선 요인 분석</h3>
+      <ul>
+        <li><strong>러스트벨트 승리</strong>: 전통적 민주당 강세 주였던 Michigan(16), Wisconsin(10), Pennsylvania(20)에서 모두 1% 미만 차이로 역전. 총 선거인단 46명 획득. (힐러리가 이 3곳만 이겼다면 273명 확보로 당선 가능했음)</li>
+        <li>러스트벨트 노동자: 1980년대부터 자유무역·해외 노동력 유입·생산시설 이동으로 일자리 상실 → 'America First', 보호무역 트럼프 노선이 효과 발휘</li>
+        <li><strong>기득권 저항</strong>: 2008년 금융위기 이후 월스트리트 엘리트에 대한 불신 (트럼프는 글래스-스티걸 법 지지)</li>
+        <li><strong>힐러리 불신</strong>: 월스트리트 강연료 수령 + 개인 이메일 사용 해명 과정에서 거짓말</li>
+        <li>트럼프: 백인·저소득·저학력 유권자의 전폭적 지지 / 힐러리: 지지자 충성도 낮음</li>
+      </ul>
+
+      <h3>미국 주요 언론의 정치 성향 (28-29쪽)</h3>
+      <table>
+        <tr><th>매체</th><th>종류</th><th>성향</th></tr>
+        <tr><td>NBC, ABC, CBS</td><td>네트워크</td><td><span class="tag green">Liberal (진보)</span></td></tr>
+        <tr><td>CNN, MSNBC</td><td>케이블</td><td><span class="tag green">Liberal (진보)</span></td></tr>
+        <tr><td>Fox News, Newsmax</td><td>케이블</td><td><span class="tag red">Conservative (보수)</span></td></tr>
+      </table>
+      <div class="info-box">2024년 대선: 154개 일간지 중 다수가 Harris 지지. 단, Wall Street Journal은 지지후보 없음. New York Times, Washington Post 등 대부분 민주당 후보 지지.</div>
+
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== S6: 정치광고 ===== -->
+<div class="section" id="s6">
+
+  <div class="chapter open">
+    <div class="chapter-header" onclick="toggle(this)">
+      <div class="chapter-num">12</div>
+      <div class="chapter-title">정치광고 — 한국 vs 미국 비교</div>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="chapter-body">
+
+      <h3>한국 vs 미국 정치광고 비교</h3>
+      <div class="compare">
+        <div class="compare-box korea">
+          <h4>🇰🇷 한국 TV 정치광고</h4>
+          <ul>
+            <li>1992년 14대 대선부터 TV/라디오 허용</li>
+            <li>매체별 각 <span class="highlight">30회 이내</span>, 1회 1분 초과 불가</li>
+            <li>신문광고: 매체별 70회까지</li>
+            <li>인터넷: 횟수 제한 없음 (선거광고 표시 의무)</li>
+            <li>공식선거운동기간: 대선 <span class="highlight">22일</span> / 총선·지방선거 <span class="highlight">13일</span></li>
+            <li>대선 후보 1인 약 3~8개 광고</li>
+            <li><span class="highlight">긍정광고·이미지 광고</span> 비중 높음 (이미지 77%, 정책 23%)</li>
+            <li>감성적·소프트한 긍정광고 전략 주로 사용</li>
+          </ul>
+        </div>
+        <div class="compare-box usa">
+          <h4>🇺🇸 미국 TV 정치광고</h4>
+          <ul>
+            <li>1948년 Truman 시절 처음 등장</li>
+            <li>횟수·비용 제한 <span class="highlight">없음</span></li>
+            <li>대선 후보 1인 약 <span class="highlight">2,000개</span> 광고</li>
+            <li>2024: 해리스 19억 달러, 트럼프 16억 달러 지출</li>
+            <li>공적자금 받으면 1.2억 달러 상한 → 대부분 공적자금 거부</li>
+            <li><span class="highlight">부정광고·정책광고</span> 비중 높음</li>
+            <li>2016년 대선 TV광고 중 92%가 부정광고</li>
+            <li>2024: 트럼프 진영 90%+가 부정광고</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3>Super PAC (정치활동위원회)</h3>
+      <ul>
+        <li>2010년 연방대법원 판결로 허용 → 2012년 대선부터 큰 역할</li>
+        <li>후보자와 직접 관계없는 조직이 <span class="highlight">무제한</span> 모금·지출 가능</li>
+        <li>TV광고·미디어를 통해 후보 지원 (대부분 네거티브 광고)</li>
+        <li>민주당 대표 슈퍼팩: Future Forward(해리스, 10억 달러), Priorities USA</li>
+        <li>공화당 대표 슈퍼팩: MAGA Inc(트럼프), America PAC(Elon Musk 연계)</li>
+      </ul>
+
+      <h3>미국 정치후원금 규정</h3>
+      <table>
+        <tr><th>대상</th><th>미국</th><th>한국</th></tr>
+        <tr><td>개인 → 정당 기부 (연간)</td><td>최대 $44,300</td><td>최대 500만원</td></tr>
+        <tr><td>개인 → 후보 기부 (경선·본선 각각)</td><td>$3,500</td><td>대통령 1천만, 국회의원 등 500만원</td></tr>
+        <tr><td>Super PAC</td><td>무제한</td><td>없음</td></tr>
+      </table>
+
+      <h3>정치광고의 효과</h3>
+      <h4>네거티브(공격) 광고 효과</h4>
+      <ul>
+        <li>집중도와 인지 정교화를 높임 (긍정광고보다 더 잘 기억)</li>
+        <li>위협 소구 → 안정성 추구 → 보수당 후보가 더 많이 사용</li>
+        <li>갈등성·흥미성이 있어 뉴스 미디어의 보도 내용이 됨 → 효과 증폭</li>
+        <li>비지지층을 설득하는 데 긍정광고보다 효과적</li>
+        <li>단, 논거가 타당하지 않고 인신공격으로 느껴지면 <span class="highlight">부메랑(역풍) 효과</span></li>
+        <li>긍정광고는 기존 지지자 태도 강화에 효과적</li>
+        <li>후보자 직접보다 정당·제3자(슈퍼팩)가 제작한 공격광고가 더 효과적</li>
+      </ul>
+
+      <h4>광고 기법 분류</h4>
+      <table>
+        <tr><th>기법</th><th>대표 사례</th></tr>
+        <tr><td>위협기법</td><td>1964 Daisy (Johnson vs Goldwater), 1984 Bear (Reagan)</td></tr>
+        <tr><td>증언기법</td><td>1980 Nancy Reagan / 2004 Any Questions?</td></tr>
+        <tr><td>서민적 이미지</td><td>1992 상도동, 2007 국밥집할머니, 2002 눈물·상록수</td></tr>
+        <tr><td>전이기법</td><td>1984 Reagan (경기회복 → 낙관주의)</td></tr>
+        <tr><td>식역하 기법</td><td>2000 Priority MD RNC (순간 이미지 삽입)</td></tr>
+        <tr><td>징글</td><td>김대중 후보, 1952 Eisenhower, 1960 Kennedy</td></tr>
+      </table>
+
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== S7: TV토론 ===== -->
+<div class="section" id="s7">
+
+  <div class="chapter open">
+    <div class="chapter-header" onclick="toggle(this)">
+      <div class="chapter-num">13</div>
+      <div class="chapter-title">후보자 TV토론회 — 장단점·효과·형식</div>
+      <span class="toggle-icon">▼</span>
+    </div>
+    <div class="chapter-body">
+
+      <h3>TV토론의 장점</h3>
+      <ul>
+        <li>후보자의 정책과 자질에 대해 비교적 자세한 검증 가능</li>
+        <li>매체 매개 없이 후보자를 직접 보고 판단 가능</li>
+        <li>고비용 저효율 선거 유세의 좋은 대안</li>
+        <li>선거 분위기 고조, 국민적 관심 증가</li>
+        <li>팩트체킹을 통한 진실성 확인</li>
+      </ul>
+
+      <h3>TV토론의 단점</h3>
+      <ul>
+        <li>말투·태도·언변·인상 등 피상적 이미지에 영향받음</li>
+        <li>정책 토론 대신 후보자 간 공격이 주를 이루는 경향</li>
+        <li>선두 후보자는 토론을 꺼리고 소극적 태도</li>
+        <li>지엽적 실수가 큰 영향 미침</li>
+        <li>특정 후보에게 질문 집중 또는 특정 후보들끼리 지정토론</li>
+      </ul>
+
+      <h3>TV토론 효과</h3>
+      <ul>
+        <li>지지율의 중요한 변수, 특히 <span class="highlight">박빙 상황에서 결정적 영향</span></li>
+        <li><span class="highlight">부동층</span>에게 유의미한 효과</li>
+        <li>단, 토론 승자와 별개로 <span class="highlight">언더독(underdog) 효과</span>도 나타남</li>
+      </ul>
+
+      <div class="warn-box">TV토론 효과 무용론: 2012년 18대 대선 문재인이 토론 압도 → 박근혜 당선 / 2016년 힐러리가 3번 모두 승리 → 트럼프 당선</div>
+
+      <h3>Oops Moment — 지지율 하락 사례</h3>
+      <div class="oops"><span class="oops-year">1980년 미국</span>Carter: "12살 딸 Amy도 핵무기가 가장 중요한 이슈라고 했다" → 대통령답지 않게 가볍다는 평가</div>
+      <div class="oops"><span class="oops-year">1988년 미국</span>Dukakis: 아내가 성폭행·살해되어도 사형제 폐지 주장 → 얼굴색 변하지 않아 "인간미 없다" 정서적 거부감</div>
+      <div class="oops"><span class="oops-year">1992년 미국</span>Bush: 경제 불황이 개인 삶에 어떤 영향 주었냐는 질문에 손목시계 훔쳐봄 → "무감각한 엘리트" 이미지</div>
+      <div class="oops"><span class="oops-year">2000년 미국</span>Al Gore: 자주 한숨 쉬고 눈 굴리고 짜증 섞인 표정 → 거만한 이미지</div>
+      <div class="oops"><span class="oops-year">2008년 미국</span>McCain: Obama 정책 이해 못하고 같은 질문 반복 → 신뢰 주지 못함</div>
+      <div class="oops"><span class="oops-year">2011년 미국</span>Rick Perry: 없애겠다는 정부부처 3개 중 1개(Energy Dept)를 끝까지 기억 못함 → 낙마</div>
+      <div class="oops"><span class="oops-year">2017년 한국</span>안철수: "MB아바타, 갑철수냐?" 문재인에 질문 → 부자연스러운 상황 연출, 지지율 하락</div>
+      <div class="oops"><span class="oops-year">2024년 미국</span>Biden: 쉰 목소리, 말 더듬기, 멍하게 서 있는 모습 → 즉시 후보 교체 요구, 결국 Harris로 교체</div>
+
+      <h3>TV토론 지지율 상승 사례</h3>
+      <table>
+        <tr><th>시기</th><th>승자</th><th>핵심 이유</th></tr>
+        <tr><td>1960년 미국</td><td>Kennedy</td><td>태닝으로 건강한 외모 vs Nixon 창백·땀·수염 자국. TV 승리, 라디오는 Nixon 우세.</td></tr>
+        <tr><td>1980년 미국</td><td>Reagan</td><td>"There you go again!" / 차분·온화·유머로 Carter 압도</td></tr>
+        <tr><td>1984년 미국</td><td>Reagan</td><td>73세 고령 논란에 "상대후보의 어리고 경험 없음을 이슈화하지 않겠다" → Mondale도 폭소, 50개 주 중 49개 석권</td></tr>
+        <tr><td>1997년 한국</td><td>김대중</td><td>급진적 좌파 이미지 탈피, 차분하고 준비된 대통령 이미지 구축</td></tr>
+        <tr><td>2017년 19대</td><td>심상정·유승민</td><td>현안에 대한 명확한 이해와 비전 → 지지율 상승 / 홍준표·안철수 → 하락</td></tr>
+      </table>
+
+      <h3>TV토론의 형식</h3>
+      <table>
+        <tr><th>형식</th><th>특징</th></tr>
+        <tr><td>대담형식</td><td>후보자 1인 + 패널/사회자 질문. 상호토론 불가.</td></tr>
+        <tr><td>타운홀 미팅</td><td>일반 시민(주로 미결정 유권자)이 질문. 둥근 무대. 청중과의 인터랙션 중요.</td></tr>
+        <tr><td>패널 형식</td><td>사회자 진행 + 4~6명 패널이 질문. 사회자는 진행만.</td></tr>
+        <tr><td>사회자 단독</td><td>사회자가 혼자 질문·추가질문. 사회자 영향력 최대.</td></tr>
+        <tr><td>후보자 상호토론</td><td>후보자끼리 번갈아 질문·답변. 지정토론 가능.</td></tr>
+        <tr><td>혼합형</td><td>패널·사회자 질문 후 후보자끼리 토론. 최근 가장 많이 사용.</td></tr>
+      </table>
+
+      <div class="info-box">1988년 부통령 TV토론: Dan Quayle이 JFK와 자신 비교 → Lloyd Bentsen의 일침: <strong>"Jack Kennedy was a friend of mine. You're no Jack Kennedy."</strong> → 미국 정치토론 역사상 가장 강력한 발언 중 하나.</div>
+
+    </div>
+  </div>
+
+</div>
+
+</div><!-- /container -->
+
+<script>
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function toggle(header) {
+  const chapter = header.parentElement;
+  chapter.classList.toggle('open');
+}
+
+document.querySelectorAll('.chapter').forEach(ch => {
+  if (!ch.classList.contains('open')) {
+    ch.querySelector('.chapter-body').style.display = 'none';
+  }
+});
+</script>
+
+</body>
+</html>
