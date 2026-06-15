@@ -67,12 +67,33 @@
   .media-name { font-weight: 700; font-size: 13px; color: #1a1a2e; }
   .media-tag { font-size: 11px; color: #888; margin-left: 8px; }
   .media-detail { font-size: 12px; color: #555; margin-top: 4px; }
+
+  /* 테이블 모바일 스크롤 */
+  .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 12px 0; }
+  .table-wrap table { margin: 0; min-width: 420px; }
+
+  @media (max-width: 600px) {
+    .header { padding: 14px 16px; flex-direction: column; align-items: flex-start; gap: 8px; }
+    .header h1 { font-size: 15px; }
+    .exam-badge { font-size: 10px; padding: 3px 8px; }
+    .nav { padding: 8px 12px; top: 80px; }
+    .container { padding: 14px 12px; }
+    .chapter-header { padding: 12px 14px; }
+    .chapter-title { font-size: 13px; }
+    .chapter-body { padding: 14px 12px; }
+    .effect-grid { grid-template-columns: 1fr; }
+    .compare { grid-template-columns: 1fr; }
+    table { font-size: 12px; }
+    th, td { padding: 6px 8px; }
+    h3 { font-size: 13px; }
+    .oops { font-size: 12px; padding: 10px 12px; }
+  }
 </style>
 </head>
 <body>
 
 <div class="header">
-  <h1>📚 기말고사 종합정리노트 By.박제니</h1>
+  <h1>📚 기말고사 종합정리노트</h1>
   <div style="display:flex;gap:8px;align-items:center">
     <span class="exam-badge">OX + 객관식 70% 이상</span>
     <span class="exam-badge" style="background:#333">단답형 30%</span>
@@ -197,7 +218,7 @@
     <div class="chapter-body">
 
       <h3>1) 신문 — 종합중앙일간지</h3>
-      <table>
+      <div class="table-wrap"><table>
         <tr><th>신문사</th><th>성향</th><th>지배구조 핵심</th></tr>
         <tr><td><strong>조선일보</strong></td><td><span class="tag red">보수</span></td><td>방상훈(약30%)·방씨 일가 족벌. TV조선 관계사. 2025년 매출 3위.</td></tr>
         <tr><td><strong>중앙일보</strong></td><td><span class="tag red">보수</span></td><td>홍석현→홍정도. 중앙홀딩스(64.7%), JTBC·콘텐트리중앙 계열. 2025년 매출 1위.</td></tr>
@@ -206,29 +227,29 @@
         <tr><td><strong>경향신문</strong></td><td><span class="tag green">진보</span></td><td>자사주+우리사주조합으로 구성</td></tr>
         <tr><td><strong>국민일보</strong></td><td><span class="tag red">보수</span></td><td>국민문화재단(조용기 목사 일가) 100% 지분</td></tr>
         <tr><td><strong>세계일보</strong></td><td><span class="tag red">보수</span></td><td>통일교재단 63% → 통일교 언론</td></tr>
-      </table>
+      </table></div>
 
       <h3>2) 신문 — 경제일간지</h3>
-      <table>
+      <div class="table-wrap"><table>
         <tr><th>신문사</th><th>특징</th></tr>
         <tr><td><strong>매일경제</strong></td><td>정진기 언론문화재단(46.5%) 지배. MBN 관계사. 세계지식포럼 등 사업.</td></tr>
         <tr><td><strong>한국경제</strong></td><td>현대차(20.5%)·SK텔레콤(13.8%)·LG(13.6%) 등 대기업 지분 55%. 2025년 매출 2위. 한경 유튜브 채널 인기.</td></tr>
         <tr><td><strong>머니투데이</strong></td><td>뉴스1·뉴시스(민영뉴스통신사) 계열. 상대적으로 진보 성향.</td></tr>
-      </table>
+      </table></div>
 
       <h3>3) 방송 — 지상파(공영방송)</h3>
       <div class="info-box">공영방송(KBS, MBC, EBS)은 정부 영향력 하에 있어 정권 변화에 따라 정치 성향이 달라질 가능성이 구조적으로 내재되어 있다. → 방송3법으로 개편 시도.</div>
 
-      <table>
+      <div class="table-wrap"><table>
         <tr><th>방송사</th><th>지배구조</th><th>사장(현재)</th></tr>
         <tr><td><strong>KBS</strong></td><td>정부 100% 소유. KBS이사회(15인)가 선출 → 대통령 임명</td><td>박장범 (2024.12~2027.12)</td></tr>
         <tr><td><strong>MBC</strong></td><td>방송문화진흥회(70%)+정수장학회(30%). 방문진 이사회 선출</td><td>안형준 (임기만료 후 유지 중)</td></tr>
         <tr><td><strong>EBS</strong></td><td>방통위 의결로 위원장이 임명</td><td>김유열 (취소 판결로 유지)</td></tr>
         <tr><td><strong>SBS</strong></td><td>TY홀딩스(태영건설 지주회사) 36.9% 대주주. 민영방송.</td><td>-</td></tr>
-      </table>
+      </table></div>
 
       <h3>4) 방송 — 유선방송(종편·보도전문)</h3>
-      <table>
+      <div class="table-wrap"><table>
         <tr><th>채널</th><th>성향</th><th>대주주</th></tr>
         <tr><td>JTBC</td><td><span class="tag green">진보</span> (종편 유일)</td><td>중앙홀딩스 25%+중앙일보 5%</td></tr>
         <tr><td>TV조선</td><td><span class="tag red">보수</span></td><td>조선일보 22%</td></tr>
@@ -236,7 +257,7 @@
         <tr><td>MBN</td><td><span class="tag red">보수</span></td><td>매일경제신문 26.7%</td></tr>
         <tr><td>연합뉴스TV</td><td>정권친화적</td><td>연합뉴스 28% (뉴스통신진흥회+KBS+MBC 지분)</td></tr>
         <tr><td>YTN</td><td>민영화 후 보수화</td><td>유진그룹 30.95% (2023년 인수, 현재 재판 중)</td></tr>
-      </table>
+      </table></div>
 
       <h3>5) 뉴스통신사</h3>
       <ul>
@@ -261,12 +282,12 @@
     <div class="chapter-body">
 
       <h3>연령별 유권자분포 추이 (40대 미만 비율 감소)</h3>
-      <table>
+      <div class="table-wrap"><table>
         <tr><th>선거</th><th>40대 미만</th><th>50대</th><th>60대 이상</th></tr>
         <tr><td>2012년 18대 대선</td><td>60%</td><td>19.2%</td><td>20.8%</td></tr>
         <tr><td>2022년 20대 대선</td><td>50.7%</td><td>19.5%</td><td>29.8%</td></tr>
         <tr><td>2025년 21대 대선</td><td>47.3%</td><td>19.6%</td><td>33.1%</td></tr>
-      </table>
+      </table></div>
 
       <h3>연령별 정치성향 핵심 정리</h3>
       <ul>
@@ -284,14 +305,14 @@
       </div>
 
       <h3>지역별 정치성향</h3>
-      <table>
+      <div class="table-wrap"><table>
         <tr><th>지역</th><th>성향</th><th>유권자 비율</th></tr>
         <tr><td>수도권(서울·경기·인천)</td><td>불일정</td><td>50%(122석)</td></tr>
         <tr><td>전라도·제주도</td><td><span class="tag green">진보</span></td><td>10%+1.3%</td></tr>
         <tr><td>경상도(TK+PK)</td><td><span class="tag red">보수</span></td><td>25%(65석)</td></tr>
         <tr><td>강원도</td><td><span class="tag red">보수</span></td><td>3%</td></tr>
         <tr><td>충청도</td><td>불일정</td><td>10.6%</td></tr>
-      </table>
+      </table></div>
 
       <div class="warn-box">보수 강세 경상도+강원도 유권자 수는 진보 강세 전라도+제주도의 약 2.6배 → 지역구도상 보수에 유리</div>
 
@@ -379,13 +400,13 @@
       </div>
 
       <h3>국회 주요 상임위원회</h3>
-      <table>
+      <div class="table-wrap"><table>
         <tr><th>상임위</th><th>구성원수</th><th>주요 역할</th></tr>
         <tr><td>국회운영위원회</td><td>28인</td><td>국회운영 + 대통령·직속기관 국정감사</td></tr>
         <tr><td>법제사법위원회(법사위)</td><td>18인</td><td>법안 2차 심사. 야당이 맡는 관례. 법사위원장이 핵심.</td></tr>
         <tr><td>정무위원회</td><td>24인</td><td>국무총리·공정위·금융위 등 담당</td></tr>
         <tr><td>예결산특별위원회</td><td>50인</td><td>예산안 종합심사 (11월), 위원 임기 1년</td></tr>
-      </table>
+      </table></div>
 
       <h3>2012년 국회선진화법 핵심 내용</h3>
       <ul>
@@ -412,7 +433,7 @@
     <div class="chapter-body">
 
       <h3>대통령선거제도 일반</h3>
-      <table>
+      <div class="table-wrap"><table>
         <tr><th>항목</th><th>내용</th></tr>
         <tr><td>임기</td><td><span class="highlight">5년 단임제</span></td></tr>
         <tr><td>선거방식</td><td>국민직접선거, 1인 1표, 전국단순권역 다득표 후보 선출</td></tr>
@@ -420,7 +441,7 @@
         <tr><td>피선거권</td><td>국내 5년 이상 거주, <span class="highlight">40세 이상</span> 대한민국 국민</td></tr>
         <tr><td>공식선거운동 기간</td><td><span class="highlight">22일간</span> (선거일 기준 22일 전부터 선거일 전날까지)</td></tr>
         <tr><td>역대 투표율</td><td>20대 77.1%, 19대 77.2%, 18대 75.8%, 17대 63%</td></tr>
-      </table>
+      </table></div>
 
       <h3>대통령선거일</h3>
       <ul>
@@ -445,12 +466,12 @@
       </ul>
 
       <h3>선거비용 보전 기준</h3>
-      <table>
+      <div class="table-wrap"><table>
         <tr><th>득표율</th><th>기탁금</th><th>선거비용</th></tr>
         <tr><td><strong>당선 or 15% 이상</strong></td><td>전액 반환</td><td>전액 보전</td></tr>
         <tr><td><strong>10% 이상 ~ 15% 미만</strong></td><td>50% 반환</td><td>50% 보전</td></tr>
         <tr><td><strong>10% 미만</strong></td><td>몰수</td><td>보전 없음</td></tr>
-      </table>
+      </table></div>
       <div class="info-box">대통령 기탁금: 3억원 / 21대 대선 법정선거비용 한도: 588억원</div>
 
     </div>
@@ -465,7 +486,7 @@
     <div class="chapter-body">
 
       <h3>22대 총선 기준 선거제도</h3>
-      <table>
+      <div class="table-wrap"><table>
         <tr><th>항목</th><th>내용</th></tr>
         <tr><td>전체의석</td><td><span class="highlight">300석</span> (지역구 254석 + 준연동형 비례대표 46석)</td></tr>
         <tr><td>선거방식</td><td>유권자 1인 2표 (지역구 1표 + 정당 1표, 2004년 17대 총선부터)</td></tr>
@@ -475,7 +496,7 @@
         <tr><td>선거일</td><td>임기만료(5월30일) 전 50일 이후 첫 번째 수요일</td></tr>
         <tr><td>후보자 기탁금</td><td>지역구 1,500만원 / 비례대표 500만원</td></tr>
         <tr><td>지역구 선거비용 한도</td><td>평균 약 2.2억 / 최대 4.12억 / 최소 1.65억</td></tr>
-      </table>
+      </table></div>
 
       <div class="warn-box">비례대표 의원이 소속 정당을 <strong>자진 탈당</strong>하면 의원직 상실. 그러나 <strong>제명</strong>에 의해서는 의원직이 상실되지 않음. → 거대양당 비례대표 의원의 편법 이용 문제</div>
 
@@ -499,12 +520,12 @@
     <div class="chapter-body">
 
       <h3>유권자 1인이 행사하는 표 수</h3>
-      <table>
+      <div class="table-wrap"><table>
         <tr><th>지역</th><th>표 수</th><th>대상</th></tr>
         <tr><td>일반 지역</td><td><span class="highlight">7표</span></td><td>광역단체장+광역의원(지역구+비례)+기초단체장+기초의원(지역구+비례)+교육감</td></tr>
         <tr><td>제주특별자치도</td><td><span class="highlight">5표</span></td><td>기초단체장·기초의원 없음, 교육의원 선출</td></tr>
         <tr><td>세종특별자치시</td><td><span class="highlight">4표</span></td><td>기초단체장·기초의원 없음</td></tr>
-      </table>
+      </table></div>
 
       <h3>선거방식</h3>
       <ul>
@@ -538,7 +559,7 @@
       <p>국가의 일꾼을 선출하는 공직선거는 공공 이벤트이므로 선거에 사용되는 모든 비용을 국가가 부담하여, 재력에 관계없이 역량 있는 후보에게 기회를 균등히 제공.</p>
 
       <h3>후보자 기탁금 액수</h3>
-      <table>
+      <div class="table-wrap"><table>
         <tr><th>공직</th><th>기탁금</th></tr>
         <tr><td>대통령</td><td>3억원</td></tr>
         <tr><td>국회의원</td><td>1,500만원</td></tr>
@@ -546,17 +567,17 @@
         <tr><td>기초단체장</td><td>1,000만원</td></tr>
         <tr><td>광역의회의원</td><td>300만원</td></tr>
         <tr><td>기초의회의원</td><td>200만원</td></tr>
-      </table>
+      </table></div>
 
       <h3>정당 국고보조금(경상보조금) 배분 기준</h3>
-      <table>
+      <div class="table-wrap"><table>
         <tr><th>조건</th><th>배분 비율</th></tr>
         <tr><td>교섭단체 구성 정당 (20석 이상)</td><td>총액의 50%를 균등 배분</td></tr>
         <tr><td>5석 이상 20석 미만</td><td>총액의 5%씩 지급</td></tr>
         <tr><td>0~5석 미만 (총선 2%이상 or 1석+지방선거 0.5%이상 득표)</td><td>총액의 2%씩 지급</td></tr>
         <tr><td>잔여금 1/2</td><td>의석수 비율에 따라 배분</td></tr>
         <tr><td>잔여금 나머지 1/2</td><td>직전 총선 득표율에 따라 배분</td></tr>
-      </table>
+      </table></div>
       <div class="info-box">2026년 경상보조금: 530억원 / 유권자 1인당 1,211원</div>
 
       <h3>선거보조금 지급 연도</h3>
@@ -579,15 +600,15 @@
     <div class="chapter-body">
 
       <h3>미국 선거의 종류</h3>
-      <table>
+      <div class="table-wrap"><table>
         <tr><th>종류</th><th>주기</th><th>내용</th></tr>
         <tr><td><strong>대통령선거</strong></td><td>4년마다</td><td>대통령+상원(1/3)+하원(전체)+주지사 등. 투표율 60-66%. 2024년 11월 5일 실시 (투표율 64.3%)</td></tr>
         <tr><td><strong>중간선거</strong></td><td>대통령선거 2년 후</td><td>상원(1/3)+하원(전체)+주지사 등. 투표율 30-40%(최근 높아짐 2018년 50.3%). <span class="highlight">여당이 평균 하원 30석, 상원 4석 잃음</span></td></tr>
         <tr><td><strong>오프시즌 선거</strong></td><td>대선·중간선거 사이</td><td>5개 주에서 주지사·시장 등 선출</td></tr>
-      </table>
+      </table></div>
 
       <h3>대통령선거 기본 사항</h3>
-      <table>
+      <div class="table-wrap"><table>
         <tr><th>항목</th><th>내용</th></tr>
         <tr><td>선거방식</td><td>간접선거: 시민투표 → 선거인단(538명) 선출 → 선거인단이 대통령 선출</td></tr>
         <tr><td>선거인단 수</td><td>상원(100)+하원(435)+DC(3) = <span class="highlight">538명</span>. 당선 기준: <span class="highlight">270명 이상</span></td></tr>
@@ -596,7 +617,7 @@
         <tr><td>임기</td><td><span class="highlight">4년 중임제</span></td></tr>
         <tr><td>선거일</td><td>11월 첫 번째 월요일이 지난 화요일 (11월 2~8일)</td></tr>
         <tr><td>취임일</td><td><span class="highlight">1월 20일</span></td></tr>
-      </table>
+      </table></div>
 
       <h3>선거인단 선출 방식</h3>
       <ul>
@@ -665,13 +686,13 @@
       </div>
 
       <h3>선언대의원 vs 비선언대의원</h3>
-      <table>
+      <div class="table-wrap"><table>
         <tr><th>구분</th><th>선언대의원(Pledged delegate)</th><th>비선언대의원(Unpledged)</th></tr>
         <tr><td>선출방식</td><td>예비선거로 선출</td><td>당연직 (상·하원의원, 전직 정·부통령 등)</td></tr>
         <tr><td>투표의무</td><td>경선결과에 따라 특정 후보 지지 의무</td><td>자유롭게 선택 가능</td></tr>
         <tr><td>민주당 수</td><td>약 4,000명 (85%)</td><td>약 700명 (슈퍼대의원, 15%)</td></tr>
         <tr><td>공화당 수</td><td>약 2,270명 (91%)</td><td>약 150명 (9%)</td></tr>
-      </table>
+      </table></div>
 
       <div class="info-box"><strong>슈퍼화요일</strong>: 3월 첫 번째 주 화요일. 15개 주가 동시에 예비선거 실시. 각 정당 대의원의 약 1/4 선출.</div>
 
@@ -700,7 +721,7 @@
     <div class="chapter-body">
 
       <h3>미국 요인별 투표 성향 정리</h3>
-      <table>
+      <div class="table-wrap"><table>
         <tr><th>요인</th><th>민주당(진보)</th><th>공화당(보수)</th><th>특이사항</th></tr>
         <tr><td>지역</td><td>서부해안, 동북부, 뉴잉글랜드</td><td>남부 바이블벨트, 서중부, 서남부</td><td>스윙 스테이트(경합주)에 선거 집중</td></tr>
         <tr><td>성별</td><td>여성</td><td>남성</td><td>2024: 남성 55%공화, 여성 53%민주</td></tr>
@@ -709,7 +730,7 @@
         <tr><td>소득</td><td>저소득층(2020년까지)</td><td>고소득층(2020년까지)</td><td><span class="highlight">2024년 역전</span>: 민주=고소득·전문직, 공화=저소득·비대졸 노동계층</td></tr>
         <tr><td>교육수준</td><td>고학력(2016년 이후)</td><td>저학력(2016년 이후)</td><td>2024: 고졸이하 트럼프 62%, 대학원 이상 민주 59%</td></tr>
         <tr><td>종교</td><td>유대교, 기타종교, 무교</td><td>개신교, 몰몬교, 천주교</td><td>천주교는 상대적으로 보수 성향 약했으나 2024년 트럼프 56%</td></tr>
-      </table>
+      </table></div>
 
       <h3>2016년 트럼프 당선 요인 분석</h3>
       <ul>
@@ -721,12 +742,12 @@
       </ul>
 
       <h3>미국 주요 언론의 정치 성향 (28-29쪽)</h3>
-      <table>
+      <div class="table-wrap"><table>
         <tr><th>매체</th><th>종류</th><th>성향</th></tr>
         <tr><td>NBC, ABC, CBS</td><td>네트워크</td><td><span class="tag green">Liberal (진보)</span></td></tr>
         <tr><td>CNN, MSNBC</td><td>케이블</td><td><span class="tag green">Liberal (진보)</span></td></tr>
         <tr><td>Fox News, Newsmax</td><td>케이블</td><td><span class="tag red">Conservative (보수)</span></td></tr>
-      </table>
+      </table></div>
       <div class="info-box">2024년 대선: 154개 일간지 중 다수가 Harris 지지. 단, Wall Street Journal은 지지후보 없음. New York Times, Washington Post 등 대부분 민주당 후보 지지.</div>
 
     </div>
@@ -785,12 +806,12 @@
       </ul>
 
       <h3>미국 정치후원금 규정</h3>
-      <table>
+      <div class="table-wrap"><table>
         <tr><th>대상</th><th>미국</th><th>한국</th></tr>
         <tr><td>개인 → 정당 기부 (연간)</td><td>최대 $44,300</td><td>최대 500만원</td></tr>
         <tr><td>개인 → 후보 기부 (경선·본선 각각)</td><td>$3,500</td><td>대통령 1천만, 국회의원 등 500만원</td></tr>
         <tr><td>Super PAC</td><td>무제한</td><td>없음</td></tr>
-      </table>
+      </table></div>
 
       <h3>정치광고의 효과</h3>
       <h4>네거티브(공격) 광고 효과</h4>
@@ -805,7 +826,7 @@
       </ul>
 
       <h4>광고 기법 분류</h4>
-      <table>
+      <div class="table-wrap"><table>
         <tr><th>기법</th><th>대표 사례</th></tr>
         <tr><td>위협기법</td><td>1964 Daisy (Johnson vs Goldwater), 1984 Bear (Reagan)</td></tr>
         <tr><td>증언기법</td><td>1980 Nancy Reagan / 2004 Any Questions?</td></tr>
@@ -813,7 +834,7 @@
         <tr><td>전이기법</td><td>1984 Reagan (경기회복 → 낙관주의)</td></tr>
         <tr><td>식역하 기법</td><td>2000 Priority MD RNC (순간 이미지 삽입)</td></tr>
         <tr><td>징글</td><td>김대중 후보, 1952 Eisenhower, 1960 Kennedy</td></tr>
-      </table>
+      </table></div>
 
     </div>
   </div>
@@ -869,17 +890,17 @@
       <div class="oops"><span class="oops-year">2024년 미국</span>Biden: 쉰 목소리, 말 더듬기, 멍하게 서 있는 모습 → 즉시 후보 교체 요구, 결국 Harris로 교체</div>
 
       <h3>TV토론 지지율 상승 사례</h3>
-      <table>
+      <div class="table-wrap"><table>
         <tr><th>시기</th><th>승자</th><th>핵심 이유</th></tr>
         <tr><td>1960년 미국</td><td>Kennedy</td><td>태닝으로 건강한 외모 vs Nixon 창백·땀·수염 자국. TV 승리, 라디오는 Nixon 우세.</td></tr>
         <tr><td>1980년 미국</td><td>Reagan</td><td>"There you go again!" / 차분·온화·유머로 Carter 압도</td></tr>
         <tr><td>1984년 미국</td><td>Reagan</td><td>73세 고령 논란에 "상대후보의 어리고 경험 없음을 이슈화하지 않겠다" → Mondale도 폭소, 50개 주 중 49개 석권</td></tr>
         <tr><td>1997년 한국</td><td>김대중</td><td>급진적 좌파 이미지 탈피, 차분하고 준비된 대통령 이미지 구축</td></tr>
         <tr><td>2017년 19대</td><td>심상정·유승민</td><td>현안에 대한 명확한 이해와 비전 → 지지율 상승 / 홍준표·안철수 → 하락</td></tr>
-      </table>
+      </table></div>
 
       <h3>TV토론의 형식</h3>
-      <table>
+      <div class="table-wrap"><table>
         <tr><th>형식</th><th>특징</th></tr>
         <tr><td>대담형식</td><td>후보자 1인 + 패널/사회자 질문. 상호토론 불가.</td></tr>
         <tr><td>타운홀 미팅</td><td>일반 시민(주로 미결정 유권자)이 질문. 둥근 무대. 청중과의 인터랙션 중요.</td></tr>
@@ -887,7 +908,7 @@
         <tr><td>사회자 단독</td><td>사회자가 혼자 질문·추가질문. 사회자 영향력 최대.</td></tr>
         <tr><td>후보자 상호토론</td><td>후보자끼리 번갈아 질문·답변. 지정토론 가능.</td></tr>
         <tr><td>혼합형</td><td>패널·사회자 질문 후 후보자끼리 토론. 최근 가장 많이 사용.</td></tr>
-      </table>
+      </table></div>
 
       <div class="info-box">1988년 부통령 TV토론: Dan Quayle이 JFK와 자신 비교 → Lloyd Bentsen의 일침: <strong>"Jack Kennedy was a friend of mine. You're no Jack Kennedy."</strong> → 미국 정치토론 역사상 가장 강력한 발언 중 하나.</div>
 
